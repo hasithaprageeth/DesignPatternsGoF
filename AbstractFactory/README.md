@@ -1,6 +1,8 @@
 # Abstract Design Pattern
 
-![UML class diagram for Abstract Factory Design Pattern ](/assets/uml.png)
+![UML class diagram for Abstract Factory Design Pattern ](./assets/uml.png)
+
+![Design pattern diagram for Abstract Factory Design Pattern ](./assets/design_pattern.png)
 
 The classes and objects participating in this pattern include:
 
