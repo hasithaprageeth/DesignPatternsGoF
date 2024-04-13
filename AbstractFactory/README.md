@@ -1,5 +1,7 @@
 # Abstract Design Pattern
 
+This design pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+
 ![UML class diagram for Abstract Factory Design Pattern ](./assets/uml.png)
 
 ![Design pattern diagram for Abstract Factory Design Pattern ](./assets/design_pattern.png)
