@@ -1,23 +1,38 @@
 ﻿namespace AbstractFactory.RealWorld;
 
 // Documentation : https://www.dofactory.com/net/abstract-factory-design-pattern
+// Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+// ContinentFactory class provides the interface, typically involves multiple factory methods, each responsible for creating a different type of object or a set of related objects.
 
 public class RealWorldCode
 {
     public static void Run()
     {
-        // Continent factory 1
-        ContinentFactory factory1 = new AfricaFactory();
-        AnimalWorld client1 = new(factory1);
-        client1.RunFoodChain();
-
-        // Continent factory 2
-        ContinentFactory factory2 = new AmericaFactory();
-        AnimalWorld client2 = new(factory2);
-        client2.RunFoodChain();
+        AnimalWorld.RunFoodChain();
 
         // Wait for user input
         Console.ReadKey();
+    }
+}
+
+/// <summary>
+/// The 'Client' class - AnimalWorld
+/// </summary>
+class AnimalWorld()
+{
+    public static void RunFoodChain()
+    {
+        // Continent factory 1
+        ContinentFactory africaFactory = new AfricaFactory();
+        Herbivore herbivore = africaFactory.CreateHerbivore();
+        Carnivore carnivore = africaFactory.CreateCarnivore();
+        carnivore.Eat(herbivore);
+
+        // Continent factory 2
+        ContinentFactory americaFactory = new AmericaFactory();
+        herbivore = americaFactory.CreateHerbivore();
+        carnivore = americaFactory.CreateCarnivore();
+        carnivore.Eat(herbivore);
     }
 }
 
@@ -112,19 +127,5 @@ class Wolf : Carnivore
         // Eat Bison
         Console.WriteLine(this.GetType().Name +
           " eats " + h.GetType().Name);
-    }
-}
-
-/// <summary>
-/// The 'Client' class 
-/// </summary>
-class AnimalWorld(ContinentFactory factory)
-{
-    private Herbivore _herbivore = factory.CreateHerbivore();
-    private Carnivore _carnivore = factory.CreateCarnivore();
-
-    public void RunFoodChain()
-    {
-        _carnivore.Eat(_herbivore);
     }
 }

@@ -1,23 +1,37 @@
 ﻿namespace AbstractFactory.Structural;
 
 // Documentation : https://www.dofactory.com/net/abstract-factory-design-pattern
+// Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+// AbstractFactory class provides the interface, typically involves multiple factory methods, each responsible for creating a different type of object or a set of related objects.
 
 public class StructuralCode
 {
     public static void Run()
     {
-        // Abstract factory 1
-        AbstractFactory factory1 = new ConcreteFactory1();
-        Client client1 = new(factory1);
-        client1.Run();
-
-        // Abstract factory 2
-        AbstractFactory factory2 = new ConcreteFactory2();
-        Client client2 = new(factory2);
-        client2.Run();
+        Client.Run();
 
         // Wait for user input
         Console.ReadKey();
+    }
+}
+
+/// <summary>
+/// The 'Client' class. Interaction environment for the products.
+/// Enjoys the flexibility of seamlessly switching between families of objects by changing the concrete factory instance.
+/// </summary>
+class Client()
+{
+    public static void Run()
+    {
+        AbstractFactory factory1 = new ConcreteFactory1();
+        AbstractProductA abstractProductA = factory1.CreateProductA();
+        AbstractProductB abstractProductB = factory1.CreateProductB();
+        abstractProductB.Interact(abstractProductA);
+
+        AbstractFactory factory2 = new ConcreteFactory2();
+        abstractProductA = factory2.CreateProductA();
+        abstractProductB = factory2.CreateProductB();
+        abstractProductB.Interact(abstractProductA);
     }
 }
 
@@ -110,19 +124,5 @@ class ProductB2 : AbstractProductB
     {
         Console.WriteLine(this.GetType().Name +
           " interacts with " + a.GetType().Name);
-    }
-}
-
-/// <summary>
-/// The 'Client' class. Interaction environment for the products.
-/// </summary>
-class Client(AbstractFactory factory)
-{
-    private AbstractProductA _abstractProductA = factory.CreateProductA();
-    private AbstractProductB _abstractProductB = factory.CreateProductB();
-
-    public void Run()
-    {
-        _abstractProductB.Interact(_abstractProductA);
     }
 }

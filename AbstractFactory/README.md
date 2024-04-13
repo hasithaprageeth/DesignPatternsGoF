@@ -23,3 +23,4 @@ The classes and objects participating in this pattern include:
 
 * Client (CarWorld)
    - uses interfaces declared by AbstractFactory and AbstractProduct classes
+   - enjoys the flexibility of seamlessly switching between families of objects by changing the concrete factory instance

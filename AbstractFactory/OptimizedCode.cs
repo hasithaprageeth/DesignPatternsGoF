@@ -1,21 +1,41 @@
 ﻿namespace AbstractFactory.Optimized;
 
 // Documentation : https://www.dofactory.com/net/abstract-factory-design-pattern
+// Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+// ContinentFactory class provides the interface, typically involves multiple factory methods, each responsible for creating a different type of object or a set of related objects.
 
 public class OptimizedCode
 {
     public static void Run()
     {
-        // Create and run the African animal world
-        var africaFactory = new AnimalWorld<AfricaFactory>();
-        africaFactory.RunFoodChain();
-
-        // Create and run the American animal world
-        var americaFactory = new AnimalWorld<AmericaFactory>();
-        americaFactory.RunFoodChain();
+        AnimalWorld.RunFoodChain();
 
         // Wait for user input
         Console.ReadKey();
+    }
+}
+
+/// <summary>
+/// The 'Client' class
+/// </summary>
+public class AnimalWorld
+{
+    /// <summary>
+    /// Runs the foodchain: carnivores are eating herbivores.
+    /// </summary>
+    public static void RunFoodChain()
+    {
+        // Africa Factory
+        IContinentFactory africaFactory = new AfricaFactory();
+        IHerbivore herbivore = africaFactory.CreateHerbivore();
+        ICarnivore carnivore = africaFactory.CreateCarnivore();
+        carnivore.Eat(herbivore);
+
+        // America Factory
+        IContinentFactory americaFactory = new AmericaFactory();
+        herbivore = americaFactory.CreateHerbivore();
+        carnivore = americaFactory.CreateCarnivore();
+        carnivore.Eat(herbivore);
     }
 }
 
@@ -36,6 +56,7 @@ public class AfricaFactory : IContinentFactory
     public IHerbivore CreateHerbivore() => new Wildebeest();
     public ICarnivore CreateCarnivore() => new Lion();
 }
+
 /// <summary>
 /// The 'ConcreteFactory2' class. - AmericaFactory
 /// </summary>
@@ -92,39 +113,4 @@ public class Wolf : ICarnivore
     // Eat Bison
     public void Eat(IHerbivore h) =>
         Console.WriteLine($"{GetType().Name} eats {h.GetType().Name}");
-}
-
-/// <summary>
-/// The 'Client' interface
-/// </summary>
-public interface IAnimalWorld
-{
-    void RunFoodChain();
-}
-
-/// <summary>
-/// The 'Client' class 
-/// </summary>
-public class AnimalWorld<T> : IAnimalWorld where T : IContinentFactory, new()
-{
-    private readonly IHerbivore herbivore;
-    private readonly ICarnivore carnivore;
-
-    public AnimalWorld()
-    {
-        // Create new continent factory
-        var factory = new T();
-
-        // Factory creates carnivores and herbivores
-        carnivore = factory.CreateCarnivore();
-        herbivore = factory.CreateHerbivore();
-    }
-
-    /// <summary>
-    /// Runs the foodchain: carnivores are eating herbivores.
-    /// </summary>
-    public void RunFoodChain()
-    {
-        carnivore.Eat(herbivore);
-    }
 }
