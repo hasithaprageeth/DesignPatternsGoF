@@ -1,5 +1,4 @@
-﻿using AbstractFactory;
-using AbstractFactory.Optimized;
+﻿using AbstractFactory.Optimized;
 using AbstractFactory.RealWorld;
 using AbstractFactory.Structural;
 

@@ -1,4 +1,4 @@
-# Abstract Design Pattern
+# Abstract Factory Design Pattern
 
 This design pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.
 
